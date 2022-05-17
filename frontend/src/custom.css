@@ -1,0 +1,22 @@
+#list {
+  list-style: none;
+}
+
+#quoteCol {
+  height: 100%;
+}
+
+#jobcard {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.171);
+}
+
+#divtest :hover {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.253);
+  zoom: 1.01;
+  
+}
+
+.tables {
+  text-align: left;
+}
+
