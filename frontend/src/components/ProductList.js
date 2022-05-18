@@ -160,20 +160,20 @@ function ProductList() {
         });
     }
   };
-
+  console.log(products)
   return (
     <div>
       <Container>
-        {products != [] ? (
+        {data != [] ? (
           <div>
             {data.map((item, index) => (
               <div>
                 <Card
-                  onClick={() => handleHideTables(index)}
+                  
                   className="p-2 mt-3"
                 >
                   <Card.Text>
-                    {moment(item[0].buyDate).format("MM/YYYY")}
+                    <Button className="btn-light" onClick={() => handleHideTables(index)}>{moment(item[0].buyDate).format("MM/YYYY")}</Button>
                   </Card.Text>
                 </Card>
                 <div>

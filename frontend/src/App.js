@@ -15,7 +15,7 @@ import AddDentistScreen from "./screens/AddDentistScreen";
 import JobForm from "./components/JobForm"
 import JobFormScreen from "./screens/JobFormScreen";
 import ProductListScreen from "./screens/ProductListScreen";
-import ProductForm from "./components/ProductForm";
+import AddProductScreen from "./screens/AddProductScreen";
 
 function App() {
   const [user, setUser] = useState('');
@@ -67,8 +67,8 @@ function App() {
           <Route exact path="/job/:id" element={<JobFormScreen />}></Route>
           <Route path="/job_reg/:name/:id" element={<JobFormScreen />}></Route>
           <Route  path="/productlist" element={<ProductListScreen />}></Route>
-          <Route  path="/addproduct/" element={<ProductForm />}></Route>
-          <Route  path="/editproduct/:id" element={<ProductForm />}></Route>
+          <Route  path="/addproduct/" element={<AddProductScreen />}></Route>
+          <Route  path="/editproduct/:id" element={<AddProductScreen />}></Route>
           
           
         </Routes>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Card } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -103,10 +103,29 @@ function ProductForm() {
       });
   };
 
+  const DelBtn = (id) => {
+    if (window.confirm("Deseja realmente excluir?")) {
+      fetch(`http://localhost:8000/api/products/${id}/`, {
+        method: "Delete",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+      })
+        .then((response) => {
+          navigate("/productlist/")
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <div>
-      <Header></Header>
-      <Form onSubmit={id != undefined ? handleUpdateProduct : handleAddProduct}>
+      <Card className="mt-3">
+        <Card.Title className="pt-3">{id != undefined ? "Atualizar produto" : "Adicionar produto"}</Card.Title>
+      <Form className="p-3" onSubmit={id != undefined ? handleUpdateProduct : handleAddProduct}>
         <Form.Group className="mb-3">
           <Form.Label>Produto:</Form.Label>
           <Form.Control
@@ -159,10 +178,15 @@ function ProductForm() {
           />
         </Form.Group>
 
-        <Button className="mb-5" type="submit" variant="primary">
+        <Button className="m-2" type="submit" variant="primary">
           {id != undefined ? "Atualizar" : "Adicionar"}
         </Button>
+        
+          {id != undefined ? <Button className="" type="submit" variant="danger" onClick={()=>DelBtn(id)}>Deletar
+        </Button> : ""}
+          
       </Form>
+      </Card>
     </div>
   );
 }

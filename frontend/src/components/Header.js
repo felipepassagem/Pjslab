@@ -71,9 +71,15 @@ function Header({ login }) {
             </Nav>
             <Nav>
             <Nav.Link href="/job_list">Trabalhos</Nav.Link>
-            <Nav.Link href="/productlist">Produtos</Nav.Link>
-            <Nav.Link href="/addproduct/">add</Nav.Link>
-              <NavDropdown title="Clientes" id="basic-nav-dropdown"  className="navbtn">
+            <NavDropdown title="Produtos" id="basic-nav-dropdown"  className="navbtn">
+                <NavDropdown.Item href="/productlist">Lista</NavDropdown.Item>
+
+                <LinkContainer to="/addproduct">
+                  <NavDropdown.Item>Adicionar</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            
+              <NavDropdown title="Dentistas" id="basic-nav-dropdown"  className="navbtn">
                 <NavDropdown.Item href="/dentist_list">Lista</NavDropdown.Item>
 
                 <LinkContainer to="/addDentist">

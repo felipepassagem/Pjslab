@@ -14,7 +14,7 @@ import Cookies from "universal-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 function ClientList() {
   const cookies = new Cookies();
@@ -51,24 +51,22 @@ function ClientList() {
         },
       })
         .then((response) => {
-          setDentists(response.data)
-          
+          setDentists(response.data);
         })
         .catch((error) => {
           console.log(error);
-          
         });
     }
   }, [token]);
 
   //updateclient
   const handleUpdate = (id) => {
-    navigate(`/dentist/${id}`)
-  }
+    navigate(`/dentist/${id}`);
+  };
 
   const handleDentistList = (name) => {
-    navigate(`/${name}`)
-  }
+    navigate(`/${name}`);
+  };
   /*
   const handleDentistQuote = (name) => {
     navigate(`/quote/${name}`)
@@ -76,60 +74,54 @@ function ClientList() {
   */
 
   const handleNewJob = (name, id) => {
-    navigate(`/job_reg/${name}/${id}`)
-  }
-
-
-  
-  
+    navigate(`/job_reg/${name}/${id}`);
+  };
 
   const handleDelete = (id) => {
-    if(window.confirm('Deseja realmente excluir?')) {
+    if (window.confirm("Deseja realmente excluir?")) {
       fetch(`http://localhost:8000/api/dentists/${id}/`, {
-      method: "Delete",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    })
-    .then((resp) => resp.json())
-    .catch((error) => error)
-    .then(fetch("http://localhost:8000/api/dentists/", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    })
-    .then((resp) => resp.json())
-    .then((resp) => setDentists(resp))
-    .then(navigate(0))
-    .then(()=>{
-      axios({
-        method: "GET",
-        url: "http://127.0.0.1:8000/api/dentists/",
+        method: "Delete",
         headers: {
           "Content-type": "application/json",
           Authorization: `Token ${token}`,
         },
       })
-        .then((response) => {
-          console.log(response.data)
-          setDentists(response.data)
-          
-        })
-        .catch((error) => {
-          console.log(error);
-          
+        .then((resp) => resp.json())
+        .catch((error) => error)
+        .then(
+          fetch("http://localhost:8000/api/dentists/", {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Token ${token}`,
+            },
+          })
+            .then((resp) => resp.json())
+            .then((resp) => setDentists(resp))
+            .then(navigate(0))
+            .then(() => {
+              axios({
+                method: "GET",
+                url: "http://127.0.0.1:8000/api/dentists/",
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Token ${token}`,
+                },
+              })
+                .then((response) => {
+                  console.log(response.data);
+                  setDentists(response.data);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            })
+        )
+        .then(() => {
+          getToast(3);
         });
-    })
-    )
-    .then(() => {
-      getToast(3)
-    })
-      }
-  }
-  
+    }
+  };
 
   return (
     <div>
@@ -145,25 +137,43 @@ function ClientList() {
               </tr>
             </thead>
             <tbody>
-            {dentists.map((dentist, index) => {
-              return (
-                
+              {dentists.map((dentist, index) => {
+                return (
                   <tr key={index}>
-                    <td key={dentist.dentistName} >{dentist.dentistName}</td>
+                    <td key={dentist.dentistName}>{dentist.dentistName}</td>
                     <td key={dentist.dentistPhone}>{dentist.dentistPhone}</td>
                     <td key={dentist.dentistCity}>{dentist.dentistCity}</td>
                     <td key={dentist.id}>
-                      <button className="btn btn-info m-2" onClick={() => handleUpdate(dentist.id)} >Atualizar</button>
-                      <button className="btn btn-danger m-2" onClick={() => handleDelete(dentist.id)} >Delete</button>
-                      <button className="btn btn-secondary m-2" onClick={() => handleDentistList( dentist.dentistName)} >Trabalhos</button>
-                      <button className="btn btn-success m-2" onClick={() => handleNewJob(dentist.dentistName, undefined)} >Novo</button>
-                      
+                      <button
+                        className="btn btn-primary m-2"
+                        onClick={() => handleDentistList(dentist.dentistName)}
+                      >
+                        Trabalhos
+                      </button>
+                      <button
+                        className="btn btn-success m-2"
+                        onClick={() =>
+                          handleNewJob(dentist.dentistName, undefined)
+                        }
+                      >
+                        Novo
+                      </button>
+                      <button
+                        className="btn btn-info m-2"
+                        onClick={() => handleUpdate(dentist.id)}
+                      >
+                        Atualizar
+                      </button>
+                      <button
+                        className="btn btn-danger m-2"
+                        onClick={() => handleDelete(dentist.id)}
+                      >
+                        Delete
+                      </button>
                     </td>
-                    
                   </tr>
-                
-              );
-            })}
+                );
+              })}
             </tbody>
           </Table>
         </Row>
