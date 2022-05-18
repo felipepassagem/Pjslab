@@ -29,6 +29,15 @@ function ProductList() {
   const [isLoading, setIsLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
+  const getToast = (n) => {
+    if (n == 1) {
+      return toast.warning("Produto deletado.");
+    }
+    if (n == 2) {
+      return toast.error("Houve algum erro...");
+    }
+  };
+
   useEffect(() => {
     if (!token) {
       navigate("/login", { replace: true });
@@ -103,6 +112,9 @@ function ProductList() {
   const EditBtn = (id) => {
     navigate(`/editproduct/${id}`, { replace: true });
   };
+  const RedirectToAdd = () =>{
+    navigate("/addproduct/")
+  }
 
   const DelBtn = (id) => {
     if (window.confirm("Deseja realmente excluir?")) {
@@ -153,16 +165,19 @@ function ProductList() {
           setMprice(priceList);
           setData(listList);
           setIsLoading(false);
+          
           navigate(0)
+          
         })
         .catch((error) => {
-          console.log(error);
+          getToast(2)
         });
     }
   };
   console.log(products)
   return (
     <div>
+      <Button type='button' className='m-2' onClick={()=> navigate("/addproduct")}>Novo</Button>
       <Container>
         {data != [] ? (
           <div>

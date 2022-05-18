@@ -29,7 +29,7 @@ function ProductForm() {
       return toast.error("Faz isso não...");
     }
     if (n == 4) {
-      return toast.success("Atualização realizada!");
+      return toast.warning("Produto deletado.");
     }
     if (n == 5) {
       return toast.warning("Não foi possível atualizar os dados do dentista.");
@@ -72,7 +72,7 @@ function ProductForm() {
       //timeout: 4000, // 4 segundos timeout
       data: body,
     })
-      .then((response) => {
+      .then(() => {
         getToast(1)
       })
       .catch((error) => {
@@ -114,9 +114,11 @@ function ProductForm() {
       })
         .then((response) => {
           navigate("/productlist/")
+          getToast(4)
         })
         .catch((error) => {
           console.log(error);
+          getToast(2)
         });
     }
   };
@@ -182,7 +184,7 @@ function ProductForm() {
           {id != undefined ? "Atualizar" : "Adicionar"}
         </Button>
         
-          {id != undefined ? <Button className="" type="submit" variant="danger" onClick={()=>DelBtn(id)}>Deletar
+          {id != undefined ? <Button className="" type="button" variant="danger" onClick={()=>DelBtn(id)}>Deletar
         </Button> : ""}
           
       </Form>
