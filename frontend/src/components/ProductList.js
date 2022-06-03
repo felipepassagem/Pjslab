@@ -85,10 +85,11 @@ function ProductList() {
           for (var i = 0; i < listList.length; i++) {
             for (var l = 0; l < listList[i].length; l++) {
               totalPrice += parseFloat(
-                listList[i][l].price * listList[i][l].quantity
+                listList[i][l].price).toFixed(2) * parseFloat(listList[i][l].quantity
               ).toFixed(2);
             }
             priceList.push(totalPrice);
+            console.log(totalPrice)
             totalPrice = 0;
           }
           setMprice(priceList);
@@ -174,7 +175,8 @@ function ProductList() {
         });
     }
   };
-  console.log(products)
+  console.log(mprice)
+  
   return (
     <div>
       <Button type='button' className='m-2' onClick={()=> navigate("/addproduct")}>Novo</Button>
@@ -213,21 +215,21 @@ function ProductList() {
                     <tbody>
                       {data[index].map((product) => {
                         return (
-                          <tr key={product.product}>
-                            <td key={product.product}>{product.product}</td>
-                            <td key={product.buyDate}>
+                          <tr key={100+ product.id + product.product}>
+                            <td key={ 200+ product.product}>{product.product}</td>
+                            <td key={ 300 + product.buyDate}>
                               {moment(product.buyDate).format("DD/MM/YY")}
                             </td>
-                            <td key={product.quantity}>{product.quantity}</td>
-                            <td key={product.price}>{product.price}</td>
-                            <td>
+                            <td key={400+ product.quantity}>{product.quantity}</td>
+                            <td key={500 + product.price}>{product.price}</td>
+                            <td key={product.id*2}>
                               {parseFloat(
                                 parseFloat(
                                   product.price * product.quantity
                                 ).toFixed(2)
                               )}
                             </td>
-                            <td>
+                            <td key = {product.id * product.id}>
                               <Button
                                 className="btn btn-primary m-1"
                                 onClick={() => EditBtn(product.id)}
@@ -245,10 +247,10 @@ function ProductList() {
                         );
                       })}
                       <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td key={mprice+ 1}></td>
+                        <td key={mprice+ 2}></td>
+                        <td key={mprice+ 3}></td>
+                        <td key={mprice + 4}></td>
                         <td key={mprice[index]}>
                           Total: {parseFloat(mprice[index]).toFixed(2)}
                         </td>

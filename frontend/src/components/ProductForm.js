@@ -74,6 +74,7 @@ function ProductForm() {
     })
       .then(() => {
         getToast(1)
+        navigate("/productlist")
       })
       .catch((error) => {
         console.log(error);

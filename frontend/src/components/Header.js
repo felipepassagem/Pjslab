@@ -16,8 +16,8 @@ function Header({ login }) {
   const token = cookies.get("mycookie");
 
   const nav = () => {
-    navigate('/')
-  }
+    navigate("/");
+  };
 
   const getToast = (n) => {
     if (n === 1) {
@@ -43,10 +43,10 @@ function Header({ login }) {
           setUsername(response.data[0].username);
         })
         .catch((error) => {
-          console.log("aqui");
+          console.log(error);
         });
     }
-  }, );
+  }, []);
 
   const logout = () => {
     console.log(token);
@@ -65,33 +65,21 @@ function Header({ login }) {
         <Navbar bg="light" expand="lg">
           <Container>
             <Nav>
-              <Nav.Link  className="navbtn" onClick={()=> nav()}>
+              <Nav.Link className="navbtn" onClick={() => nav()}>
                 <Navbar.Brand>{username}</Navbar.Brand>
               </Nav.Link>
             </Nav>
             <Nav>
-            <Nav.Link href="/job_list">Trabalhos</Nav.Link>
-            <NavDropdown title="Produtos" id="basic-nav-dropdown"  className="navbtn">
-                <NavDropdown.Item href="/productlist">Lista</NavDropdown.Item>
-
-                <LinkContainer to="/addproduct">
-                  <NavDropdown.Item>Adicionar</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
-            
-              <NavDropdown title="Dentistas" id="basic-nav-dropdown"  className="navbtn">
-                <NavDropdown.Item href="/dentist_list">Lista</NavDropdown.Item>
-
-                <LinkContainer to="/addDentist">
-                  <NavDropdown.Item>Adicionar</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
+              <Nav.Link href="/dentist_list">Dentistas</Nav.Link>
+              <Nav.Link href="/job_list">Trabalhos</Nav.Link>
+              <Nav.Link href="/productlist">Produtos</Nav.Link>
+              <Nav.Link href="/dashboard/">Dashboard</Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link onClick={() => userButton(id)}>Usuário</Nav.Link>
 
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav" >
+              <Navbar.Collapse id="basic-navbar-nav">
                 <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
               </Navbar.Collapse>
             </Nav>
@@ -106,13 +94,16 @@ function Header({ login }) {
           <Container>
             <Nav>
               <Nav.Link>
-                <Navbar.Brand>asd</Navbar.Brand>
+                <Navbar.Brand></Navbar.Brand>
               </Nav.Link>
             </Nav>
 
             <Nav>
               <LinkContainer to="/login">
-                <Navbar.Brand className="navbtn" onClick={() => cookies.remove("mycookie")}>
+                <Navbar.Brand
+                  className="navbtn"
+                  onClick={() => cookies.remove("mycookie")}
+                >
                   Login
                 </Navbar.Brand>
               </LinkContainer>

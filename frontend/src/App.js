@@ -16,6 +16,7 @@ import JobForm from "./components/JobForm"
 import JobFormScreen from "./screens/JobFormScreen";
 import ProductListScreen from "./screens/ProductListScreen";
 import AddProductScreen from "./screens/AddProductScreen";
+import DashboardScreen from "./screens/DashboardScreen";
 
 function App() {
   const [user, setUser] = useState('');
@@ -69,6 +70,7 @@ function App() {
           <Route  path="/productlist" element={<ProductListScreen />}></Route>
           <Route  path="/addproduct/" element={<AddProductScreen />}></Route>
           <Route  path="/editproduct/:id" element={<AddProductScreen />}></Route>
+          <Route  path="/dashboard/" element={<DashboardScreen />}></Route>
           
           
         </Routes>

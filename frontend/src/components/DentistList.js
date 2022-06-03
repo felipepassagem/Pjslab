@@ -126,6 +126,7 @@ function ClientList() {
   return (
     <div>
       <Container>
+      <Button type='button' className='m-2' onClick={()=> navigate("/addDentist")}>Add</Button>
         <Row>
           <Table striped bordered hover>
             <thead>

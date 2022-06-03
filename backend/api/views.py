@@ -12,13 +12,14 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import authentication, permissions, generics
 from django.contrib.auth import authenticate
+from django.db.models.functions import Lower
 
 
 
 class DentistViewSet(viewsets.ModelViewSet):
   def get_queryset(self):
     user = self.request.user
-    queryset = Dentist.objects.all().filter(user=user).order_by('dentistName')
+    queryset = Dentist.objects.all().filter(user=user).order_by(Lower('dentistName'))
     return queryset
   if IsAuthenticated:
         # Autofill FK Client.
