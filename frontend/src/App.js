@@ -1,29 +1,25 @@
 
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import Job from "./components/Job";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Cookies from "universal-cookie";
 import JobListScreen from "./screens/JobListScreen";
 import LoginRegisterScreen from "./screens/LoginRegisterScreen";
-import axios from "axios";
 import UserScreen from "./screens/UserScreen";
 import DentistListScreen from "./screens/DentistListScreen";
 import AddDentistScreen from "./screens/AddDentistScreen";
-import JobForm from "./components/JobForm"
 import JobFormScreen from "./screens/JobFormScreen";
 import ProductListScreen from "./screens/ProductListScreen";
 import AddProductScreen from "./screens/AddProductScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 
 function App() {
-  const [user, setUser] = useState('');
+  /* const [user, setUser] = useState('');
   const [token, setToken] = useState('')
   const [login, setLogin] = useState(false);
   
-  const cookies = new Cookies();
+  const cookies = new Cookies(); */
   
 
   

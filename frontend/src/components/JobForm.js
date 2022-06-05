@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Form, Button } from "react-bootstrap";
+import { Col, Card, Form, Button } from "react-bootstrap";
 import APIService from "../APIServices";
 import Cookies from "universal-cookie";
 import { ToastContainer, toast } from "react-toastify";
@@ -173,7 +173,9 @@ function AddJob() {
 
   return (
     <div>
-      <h2>Novo Trabalho</h2>
+      <Card className="p-4">
+        <Card.Title><h2>Novo Trabalho</h2></Card.Title>
+      
       <Form onSubmit={name != undefined ? handleAddJob : handleUpdateJob}>
 
       <Form.Group className="mb-3">
@@ -294,6 +296,7 @@ function AddJob() {
         </Button>
         
       </Form>
+      </Card>
     </div>
   );
 }

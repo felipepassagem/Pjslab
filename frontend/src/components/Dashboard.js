@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
-
-import Header from "./Header";
 import {
   Card,
   Col,
   Row,
-  Form,
   Container,
-  FormControl,
-  ListGroup,
-  ListGroupItem,
-  CloseButton,
-  Button,
 } from "react-bootstrap";
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";

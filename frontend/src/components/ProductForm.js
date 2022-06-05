@@ -3,9 +3,9 @@ import { Form, Button, Card } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./Header";
+
 
 function ProductForm() {
   const { id } = useParams();

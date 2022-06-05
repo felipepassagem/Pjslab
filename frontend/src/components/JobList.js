@@ -1,9 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Header from "./Header";
 import Jobs from "./Job";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import APIService from "../APIServices";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import "../../src/custom.css";
@@ -16,9 +14,6 @@ import {
   Form,
   Container,
   FormControl,
-  ListGroup,
-  ListGroupItem,
-  CloseButton,
   Button,
 } from "react-bootstrap";
 
