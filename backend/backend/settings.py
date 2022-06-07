@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+import dj_database_url
+
+""" from django.conf.locale.es import formats as es_formats """
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +31,7 @@ SECRET_KEY = 'django-insecure-dl9b5k1jmm3hcy#@tg^amd(o$*ha3!zpxe0&u=i(qgk4)a_yv3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -62,6 +67,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -80,7 +86,9 @@ REST_FRAMEWORK = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+          os.path.join(BASE_DIR, 'frontend/build')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,14 +119,28 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 } """
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pjs',
         'USER': 'postgres',
-        'PASSWORD': '120558',
-        'HOST': 'localhost'
-    }
+        'PASSWORD': os.environ.get("DB_PASS"),
+        'HOST': 'localhost',
+
+    } 
 }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+
+
+""" postgres://mqobeyqfbhohcu:44b2ad47bd7480cda2cd42b4c0ef3e9d11d8a87993822e698c8a34e953ac31a7@ec2-34-230-153-41.compute-1.amazonaws.com:5432/d3pt36t89bcj2e """
+""" DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True) """
+
+
+
+
+
 
 
 # Password validation
@@ -159,24 +181,34 @@ USE_TZ = True
 #EMAIL_HOST_USER = 'aplications.felpas@gmail.com'
 #EMAIL_HOST_PASSWORD = 'ezbentfxbgvlxehw'
 
-REST_USE_JWT = True
-SITE_ID = 1
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'aplications.felpas@gmail.com'
-EMAIL_HOST_PASSWORD = 'ezbentfxbgvlxehw'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-ACCOUNT_EMAIL_REQUIRED = True
+
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+  BASE_DIR / 'frontend/build/static',
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+""" STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' """
+
+if os.getcwd() == '/app':
+  DEBUG = False
+
+django_heroku.settings(locals())
+""" options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None) """
+
+ 
